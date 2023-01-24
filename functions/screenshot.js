@@ -28,11 +28,15 @@ const getScreenshot = async (url, isDev) => {
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle0' });
-  return page.screenshot({
+  const screenshot = await page.screenshot({
     type: 'jpeg',
     quality: 100,
     fullPage: true,
   });
+
+  await browser.close();
+
+  return screenshot;
 };
 
 exports.handler = async (event, context) => {
