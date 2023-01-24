@@ -27,7 +27,7 @@ const getScreenshot = async (url, isDev) => {
   const options = await getOptions(isDev);
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto(url, { waitUntil: 'networkidle0' });
   return page.screenshot({
     type: 'jpeg',
     quality: 100,
