@@ -27,9 +27,12 @@ const getScreenshot = async (url, isDev) => {
   const options = await getOptions(isDev);
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
-  await page.setViewport({ width: 1200, height: 630 });
   await page.goto(url);
-  return page.screenshot({ type: 'jpeg', quality: 100, fullPage: true });
+  return page.screenshot({
+    type: 'jpeg',
+    quality: 100,
+    fullPage: true,
+  });
 };
 
 exports.handler = async (event, context) => {
